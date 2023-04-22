@@ -9,6 +9,7 @@ The purpose of this script began as a side-project of mine attempting to learn a
 ### TODOs
 - Linux and MacOs support
 - Adding pre- and post- actions to gdextension builds
+- Drop the use of a gdextension.ini file
 - ...
 
 
@@ -27,6 +28,7 @@ gde_example: GDExtension = GDExtension(env)\        # Create our GDExtension obj
     .set_bin_path('path/to/bin/')\                  # Set the path where our shared library (.dll, .so) will be compiled
     .set_entry_symbol('gde_example_library_init')\  # Set the entry symbol needed for our .gdextension file
     .set_deployment_path('path/to/deploy/')\        # Set the path to deploy our .gdextension file
+    .add_icon('ClassName', 'path/to/icon.svg')      # Add an icon to a class, visible in the inspector (Godot 4.1 and forward)
     .build()                                        # Queue it to build
 ```
 
