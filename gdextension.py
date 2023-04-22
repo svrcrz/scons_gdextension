@@ -15,6 +15,7 @@ class GDExtension:
         self.lib_name: str = ''
         self.entry_symbol: str = ''
         self.deployment_path: str = ''
+        self.icon_list: list[str] = []
 
 
     def build(self, *args: 'GDExtension') -> 'GDExtension':
@@ -54,6 +55,11 @@ class GDExtension:
         contents = contents.replace('$bin_name', self.bin_name)
         contents = contents.replace('$bin_path', self.bin_path)
 
+        if len(self.icon_list) != 0:
+            contents += f'\n\n[icons]'
+            for icon in self.icon_list:
+                contents += f'\n{icon}'
+
         file_name = f'{self.deployment_path}{self.name}.gdextension'
 
         if not os.path.exists(self.deployment_path):
@@ -67,6 +73,11 @@ class GDExtension:
         self.env.Append(CPPPATH=cpppath)
         return self
     
+
+    def add_icon(self, class_name: str, icon_path: str) -> 'GDExtension':
+        self.icon_list.append(f'{class_name} = "res://{icon_path}"')
+        return self
+
 
     def add_libpath(self, libpath: str) -> 'GDExtension':
         self.env.Append(LIBPATH=libpath)
